@@ -60,3 +60,37 @@
 - 보너스 번호에 문자가 입력된 경우
 
 #### 8. 구현한 기능에 대한 단위 테스트를 진행한다.
+
+## 설계 🧩
+#### main
+```
+lotto/
+├── controller
+│   └── LottoController.kt      // (class) - 전체 흐름 제어
+│
+├── model
+│   ├── Lotto.kt                // (class) - 로또 1장
+│   ├── LottoPapers.kt          // (class) - 구매한 로또 묶음
+│   ├── WinningNumbers.kt       // (class) - 당첨/보너스 번호
+│   └── LottoResult.kt          // (data class) - 통계와 수익률 결과
+│
+├── port
+│   ├── InputPort.kt            // (interface) - 입력 기능 정의
+│   └── OutputPort.kt           // (interface) - 출력 기능 정의
+│
+├── service
+│   ├── LottoService.kt         // (class) - 로직 총괄 매니저
+│   ├── LottoGenerator.kt       // (object) - 로또 생성 로직
+│   └── LottoStatisticsCalculator.kt // (object) - 통계/수익률 계산 로직
+│
+├── util
+│   ├── InputParser.kt          // (object) - "1,2,3" -> List<Int> 변환
+│   ├── InputValidator.kt       // (object) - 입력값 형식 검증
+│   └── LottoConstants.kt       // (object) - 1000원, 6개, 1~45 등 상수
+│
+├── view
+│   ├── InputView.kt            // (object : InputPort) - 입력 구현체
+│   └── OutputView.kt           // (object : OutputPort) - 출력 구현체
+│
+└── Application.kt              // (main 함수)
+```
