@@ -6,4 +6,5 @@ interface OutputPort {
     fun printPurchaseGuide()
     fun printLottos(lottoPapers: LottoPapers)
     fun printWinningNumbersGuide()
+    fun printBonusNumberGuide()
 }

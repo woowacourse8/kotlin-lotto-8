@@ -1,5 +1,5 @@
 package lotto.model
 
-data class LottoResult() {
+data class LottoResult(val winningNumbers: List<Int>) {
 
 }

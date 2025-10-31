@@ -25,4 +25,12 @@ object InputValidator {
             ErrorMessage.INVALID_NUMBER_FORMAT.fullMessage
         }
     }
+
+    fun validateBonusNumber(input: String) {
+        val number = input.toIntOrNull()
+
+        require(number != null) {
+            ErrorMessage.INVALID_NUMBER_FORMAT.fullMessage
+        }
+    }
 }

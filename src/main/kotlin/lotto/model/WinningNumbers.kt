@@ -14,7 +14,15 @@ data class WinningNumbers(val winningNumbers: List<Int>, val bonusNumber: Int) {
         }
 
         require(winningNumbers.all { it in LottoConstants.MIN_NUM..LottoConstants.MAX_NUM }) {
-            ErrorMessage.INCORRECT_LOTTO_SIZE.fullMessage
+            ErrorMessage.LOTTO_NUMBER_OUT_OF_RANGE.fullMessage
+        }
+
+        require(bonusNumber !in winningNumbers) {
+            ErrorMessage.DUPLICATE_BONUS_NUMBER.fullMessage
+        }
+
+        require(bonusNumber in LottoConstants.MIN_NUM..LottoConstants.MAX_NUM) {
+            ErrorMessage.LOTTO_NUMBER_OUT_OF_RANGE.fullMessage
         }
     }
 }

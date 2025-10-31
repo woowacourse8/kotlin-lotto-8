@@ -10,7 +10,7 @@ fun main() {
 
     val lottoController = LottoController(
         inputPort = inputView,
-        outputPort = outputView,
+        outputPort = outputView
     )
 
     lottoController.run()

@@ -6,4 +6,6 @@ object InputParser {
     fun parseWinningNumbers(input: String): List<Int> {
         return input.split(LottoConstants.COMMA).map { it.toInt() }
     }
+
+    fun parseBonusNumber(input: String) = input.toInt()
 }
