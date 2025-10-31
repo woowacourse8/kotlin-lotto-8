@@ -10,4 +10,5 @@ interface OutputPort {
     fun printWinningNumbersGuide()
     fun printBonusNumberGuide()
     fun printLottoStatistics(lottoResult: LottoResult)
+    fun printError(message: String?)
 }

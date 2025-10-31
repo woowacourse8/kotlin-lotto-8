@@ -49,4 +49,8 @@ object OutputView : OutputPort {
 
         println("총 수익률은 ${lottoResult.profitRate}%입니다.")
     }
+
+    override fun printError(message: String?) {
+        println(message ?: "[ERROR] 알 수 없는 오류가 발생했습니다.")
+    }
 }

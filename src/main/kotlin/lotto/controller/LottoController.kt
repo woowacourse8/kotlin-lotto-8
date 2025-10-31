@@ -13,25 +13,54 @@ class LottoController(
     private val outputPort: OutputPort
 ) {
     fun run() {
-        outputPort.printPurchaseGuide()
-        val amountInput = inputPort.readInput()
-        InputValidator.validatePurchaseAmount(amountInput)
-        val amount = InputParser.parsePurchaseAmount(amountInput)
+        val amount = getValidPurchaseAmount()
         val lottoPapers = LottoService().purchaseLottos(amount)
         outputPort.printLottos(lottoPapers)
 
+        val winningLotto = getValidWinningLotto()
+
+        val lottoResult = LottoStatisticsCalculator.calculate(amount, lottoPapers, winningLotto)
+        outputPort.printLottoStatistics(lottoResult)
+    }
+
+    private fun getValidPurchaseAmount(): Int {
+        while (true) {
+            try {
+                outputPort.printPurchaseGuide()
+                val input = inputPort.readInput()
+                InputValidator.validatePurchaseAmount(input)
+                return InputParser.parsePurchaseAmount(input)
+            } catch (e: IllegalArgumentException) {
+                outputPort.printError(e.message)
+            }
+        }
+    }
+
+    private fun getValidWinningLotto(): WinningLotto {
+        while (true) {
+            try {
+                val winningNumbers = getValidWinningNumbersFormat()
+                val bonusNumber = getValidBonusNumberFormat()
+
+                return WinningLotto(winningNumbers, bonusNumber)
+
+            } catch (e: IllegalArgumentException) {
+                outputPort.printError(e.message)
+            }
+        }
+    }
+
+    private fun getValidWinningNumbersFormat(): List<Int> {
         outputPort.printWinningNumbersGuide()
         val winningNumberInput = inputPort.readInput()
         InputValidator.validateWinningNumbers(winningNumberInput)
-        val winningNumbers = InputParser.parseWinningNumbers(winningNumberInput)
+        return InputParser.parseWinningNumbers(winningNumberInput)
+    }
 
+    private fun getValidBonusNumberFormat(): Int {
         outputPort.printBonusNumberGuide()
         val bonusNumberInput = inputPort.readInput()
         InputValidator.validateBonusNumber(bonusNumberInput)
-        val bonusNumber = InputParser.parseBonusNumber(bonusNumberInput)
-
-        val winningLotto = WinningLotto(winningNumbers, bonusNumber)
-        val lottoResult = LottoStatisticsCalculator.calculate(amount, lottoPapers, winningLotto)
-        outputPort.printLottoStatistics(lottoResult)
+        return InputParser.parseBonusNumber(bonusNumberInput)
     }
 }
