@@ -70,8 +70,8 @@ lotto/
 │   └── LottoController.kt      // (class) - 전체 흐름 제어
 │
 ├── model
-│   ├── Lotto.kt                // (class) - 로또 1장
-│   ├── LottoPapers.kt          // (class) - 구매한 로또 묶음
+│   ├── Lotto.kt                // (data class) - 로또 1장
+│   ├── LottoPapers.kt          // (data class) - 구매한 로또 묶음
 │   ├── WinningNumbers.kt       // (class) - 당첨/보너스 번호
 │   └── LottoResult.kt          // (data class) - 통계와 수익률 결과
 │
