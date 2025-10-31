@@ -1,8 +1,10 @@
 package lotto.model
 
-class Lotto(private val numbers: List<Int>) {
+import lotto.util.ErrorMessage
+
+data class Lotto(private val numbers: List<Int>) {
     init {
-        require(numbers.size == 6) { "[ERROR] 로또 번호는 6개여야 합니다." }
+        require(numbers.size == 6) { ErrorMessage.INCORRECT_LOTTO_SIZE.fullMessage }
     }
 
     // TODO: 추가 기능 구현
