@@ -3,7 +3,7 @@ package lotto.util
 object InputValidator {
     fun validatePurchaseAmount(input: String) {
         val amount = input.toIntOrNull()
-            ?: throw IllegalArgumentException(ErrorMessage.INPUT_NOT_NUMERIC.fullMessage)
+            ?: throw IllegalArgumentException(ErrorMessage.INVALID_NUMBER_FORMAT.fullMessage)
 
         require(amount % LottoConstants.LOTTO_AMOUNT_UNIT == 0) {
             ErrorMessage.INVALID_AMOUNT_UNIT.fullMessage
@@ -15,23 +15,14 @@ object InputValidator {
     }
 
     fun validateWinningNumbers(input: String) {
-        val seenNumbers = mutableSetOf<Int>()
+        val numbers = input.split(LottoConstants.COMMA)
 
-        input.split(LottoConstants.COMMA).forEach { number ->
-            val number = number.toIntOrNull()
-                ?: throw IllegalArgumentException(ErrorMessage.INPUT_NOT_NUMERIC.fullMessage)
-
-            require(number < LottoConstants.MIN_NUM || number > LottoConstants.MAX_NUM) {
-                ErrorMessage.LOTTO_NUMBER_OUT_OF_RANGE.fullMessage
-            }
-
-            require(seenNumbers.add(number)) {
-                ErrorMessage.LOTTO_NUMBER_MUST_BE_UNIQUE.fullMessage
-            }
+        require(numbers.none { it.isBlank() }) {
+            ErrorMessage.INPUT_IS_NULL_OR_EMPTY.fullMessage
         }
 
-        require(seenNumbers.size == 6) {
-            ErrorMessage.INCORRECT_LOTTO_SIZE.fullMessage
+        require(numbers.all { it.toIntOrNull() != null}) {
+            ErrorMessage.INVALID_NUMBER_FORMAT.fullMessage
         }
     }
 }
