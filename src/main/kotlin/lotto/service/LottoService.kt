@@ -4,7 +4,7 @@ import lotto.model.LottoPapers
 import lotto.util.LottoConstants
 
 class LottoService {
-    fun purchaseLottos(amount: Int) : LottoPapers {
+    fun purchaseLottos(amount: Int): LottoPapers {
         val lottoCount = calculateLottoCount(amount)
         return LottoGenerator.generateLotto(lottoCount)
     }

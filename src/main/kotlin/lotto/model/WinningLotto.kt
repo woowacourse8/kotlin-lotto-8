@@ -3,7 +3,7 @@ package lotto.model
 import lotto.util.ErrorMessage
 import lotto.util.LottoConstants
 
-data class WinningNumbers(val winningNumbers: List<Int>, val bonusNumber: Int) {
+data class WinningLotto(val winningNumbers: List<Int>, val bonusNumber: Int) {
     init {
         require(winningNumbers.size == LottoConstants.LOTTO_SIZE) {
             ErrorMessage.INCORRECT_LOTTO_SIZE.fullMessage
