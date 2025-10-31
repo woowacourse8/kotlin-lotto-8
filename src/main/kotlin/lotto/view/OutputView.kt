@@ -4,8 +4,13 @@ import lotto.port.OutputPort
 
 object OutputView : OutputPort {
     const val PURCHASE_GUIDE = "구입금액을 입력해 주세요."
+    const val PURCHASE_LOTTO_COUNT = "개를 구매했습니다."
 
     override fun printPurchaseGuide() {
         println(PURCHASE_GUIDE)
+    }
+
+    override fun printPurchaseLottoCount(lottoCount: Int) {
+        println("$lottoCount$PURCHASE_LOTTO_COUNT")
     }
 }
