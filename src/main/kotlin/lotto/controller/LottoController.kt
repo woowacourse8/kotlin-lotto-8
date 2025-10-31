@@ -1,9 +1,10 @@
 package lotto.controller
 
-import lotto.model.WinningNumbers
+import lotto.model.WinningLotto
 import lotto.port.InputPort
 import lotto.port.OutputPort
 import lotto.service.LottoService
+import lotto.service.LottoStatisticsCalculator
 import lotto.util.InputParser
 import lotto.util.InputValidator
 
@@ -29,6 +30,8 @@ class LottoController(
         InputValidator.validateBonusNumber(bonusNumberInput)
         val bonusNumber = InputParser.parseBonusNumber(bonusNumberInput)
 
-        WinningNumbers(winningNumbers, bonusNumber)
+        val winningLotto = WinningLotto(winningNumbers, bonusNumber)
+        val lottoResult = LottoStatisticsCalculator.calculate(lottoPapers, winningLotto)
+        outputPort.printLottoStatistics(lottoResult)
     }
 }
