@@ -1,23 +1,21 @@
 package lotto.service
 
-import lotto.model.Lotto
-import lotto.model.LottoPapers
-import lotto.model.LottoResult
-import lotto.model.Rank
-import lotto.model.WinningLotto
+import lotto.model.*
 
 object LottoStatisticsCalculator {
     fun calculate(
+        amount: Int,
         lottoPapers: LottoPapers,
         winningLotto: WinningLotto
     ): LottoResult {
         val rankMap = mutableMapOf<Rank, Int>()
-        val profitRate: Double
 
         lottoPapers.lottos.forEach { lotto ->
             val rank = calculateRank(lotto, winningLotto)
             rankMap[rank] = rankMap.getOrDefault(rank, 0) + 1
         }
+
+        val profitRate = calculateProfitRate(amount, rankMap)
 
         return LottoResult(rankMap, profitRate)
     }
@@ -30,5 +28,21 @@ object LottoStatisticsCalculator {
         val bonusMatch = winningLotto.bonusNumber in lotto.getNumbers()
 
         return Rank.of(matchCount, bonusMatch)
+    }
+
+    private fun calculateProfitRate(amount: Int, rankMap: MutableMap<Rank, Int>): Double {
+        val totalEarnings = calculateTotalEarnings(rankMap)
+        val profitRate = totalEarnings * 100.0 / amount
+        return String.format("%.2f", profitRate).toDouble()
+    }
+
+    private fun calculateTotalEarnings(rankMap: MutableMap<Rank, Int>): Long {
+        var totalEarnings = 0L
+
+        rankMap.forEach { (rank, count) ->
+            totalEarnings += rank.prize * count
+        }
+
+        return totalEarnings
     }
 }

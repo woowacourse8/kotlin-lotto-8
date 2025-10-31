@@ -31,7 +31,7 @@ class LottoController(
         val bonusNumber = InputParser.parseBonusNumber(bonusNumberInput)
 
         val winningLotto = WinningLotto(winningNumbers, bonusNumber)
-        val lottoResult = LottoStatisticsCalculator.calculate(lottoPapers, winningLotto)
+        val lottoResult = LottoStatisticsCalculator.calculate(amount, lottoPapers, winningLotto)
         outputPort.printLottoStatistics(lottoResult)
     }
 }

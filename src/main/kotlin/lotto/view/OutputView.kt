@@ -42,9 +42,11 @@ object OutputView : OutputPort {
                 val accordCount = "${rank.matchCount}개 일치"
                 val accordBonus = if (rank.needBonus) ", 보너스 볼 일치" else ""
                 val prize = "(${String.format("%,d", rank.prize)}원)"
-                val matchCount = lottoResult.statistics[rank]
+                val matchCount = lottoResult.statistics[rank] ?: 0
 
                 println("$accordCount$accordBonus $prize - ${matchCount}개")
             }
+
+        println("총 수익률은 ${lottoResult.profitRate}%입니다.")
     }
 }
