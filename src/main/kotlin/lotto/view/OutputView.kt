@@ -1,5 +1,6 @@
 package lotto.view
 
+import lotto.model.LottoPapers
 import lotto.port.OutputPort
 
 object OutputView : OutputPort {
@@ -10,7 +11,10 @@ object OutputView : OutputPort {
         println(PURCHASE_GUIDE)
     }
 
-    override fun printPurchaseLottoCount(lottoCount: Int) {
-        println("$lottoCount$PURCHASE_LOTTO_COUNT")
+    override fun printLottos(lottoPapers: LottoPapers) {
+        println("${lottoPapers.getLottoCount()}$PURCHASE_LOTTO_COUNT")
+        lottoPapers.lottos.forEach { lotto ->
+             println(lotto.getNumbers())
+        }
     }
 }

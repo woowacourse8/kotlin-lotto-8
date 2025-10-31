@@ -15,7 +15,7 @@ class LottoController(
         val input = inputPort.readInput()
         InputValidator.validatePurchaseAmount(input)
         val amount = InputParser.parsePurchaseAmount(input)
-        val count = LottoService().calculateLottoCount(amount)
-        outputPort.printPurchaseLottoCount(count)
+        val lottoPapers = LottoService().purchaseLottos(amount)
+        outputPort.printLottos(lottoPapers)
     }
 }

@@ -1,6 +1,8 @@
 package lotto.port
 
+import lotto.model.LottoPapers
+
 interface OutputPort {
     fun printPurchaseGuide()
-    fun printPurchaseLottoCount(lottoCount: Int)
+    fun printLottos(lottoPapaers: LottoPapers)
 }

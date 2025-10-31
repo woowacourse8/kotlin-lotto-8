@@ -1,4 +1,5 @@
 package lotto.model
 
-class LottoPapers {
+data class LottoPapers(val lottos: List<Lotto>) {
+    fun getLottoCount() = lottos.size
 }

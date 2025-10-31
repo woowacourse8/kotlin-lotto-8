@@ -7,5 +7,6 @@ data class Lotto(private val numbers: List<Int>) {
         require(numbers.size == 6) { ErrorMessage.INCORRECT_LOTTO_SIZE.fullMessage }
     }
 
+    fun getNumbers() = numbers
     // TODO: 추가 기능 구현
 }
