@@ -12,10 +12,13 @@ class LottoController(
 ) {
     fun run() {
         outputPort.printPurchaseGuide()
-        val input = inputPort.readInput()
-        InputValidator.validatePurchaseAmount(input)
-        val amount = InputParser.parsePurchaseAmount(input)
+        val amountInput = inputPort.readInput()
+        InputValidator.validatePurchaseAmount(amountInput)
+        val amount = InputParser.parsePurchaseAmount(amountInput)
         val lottoPapers = LottoService().purchaseLottos(amount)
         outputPort.printLottos(lottoPapers)
+
+        outputPort.printWinningNumbersGuide()
+        val winningNumberInput = inputPort.readInput()
     }
 }

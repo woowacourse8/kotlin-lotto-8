@@ -4,5 +4,6 @@ import lotto.model.LottoPapers
 
 interface OutputPort {
     fun printPurchaseGuide()
-    fun printLottos(lottoPapaers: LottoPapers)
+    fun printLottos(lottoPapers: LottoPapers)
+    fun printWinningNumbersGuide()
 }

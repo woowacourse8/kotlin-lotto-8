@@ -5,4 +5,5 @@ object LottoConstants {
     const val MIN_NUM = 1
     const val MAX_NUM = 45
     const val LOTTO_SIZE = 6
+    const val COMMA = ","
 }
