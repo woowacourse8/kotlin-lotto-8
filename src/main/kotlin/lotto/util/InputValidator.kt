@@ -5,12 +5,12 @@ object InputValidator {
         val amount = input.toIntOrNull()
             ?: throw IllegalArgumentException(ErrorMessage.INVALID_NUMBER_FORMAT.fullMessage)
 
-        require(amount % LottoConstants.LOTTO_AMOUNT_UNIT == 0) {
-            ErrorMessage.INVALID_AMOUNT_UNIT.fullMessage
+        require(amount > 0) {
+            ErrorMessage.INVALID_QUANTITY_NOT_MET.fullMessage
         }
 
-        require(amount / LottoConstants.LOTTO_AMOUNT_UNIT > 0) {
-            ErrorMessage.INVALID_QUANTITY_NOT_MET.fullMessage
+        require(amount % LottoConstants.LOTTO_AMOUNT_UNIT == 0) {
+            ErrorMessage.INVALID_AMOUNT_UNIT.fullMessage
         }
     }
 
