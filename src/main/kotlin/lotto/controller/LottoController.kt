@@ -1,5 +1,6 @@
 package lotto.controller
 
+import lotto.model.Lotto
 import lotto.model.WinningLotto
 import lotto.port.InputPort
 import lotto.port.OutputPort
@@ -17,7 +18,8 @@ class LottoController(
         val lottoPapers = LottoService().purchaseLottos(amount)
         outputPort.printLottos(lottoPapers)
 
-        val winningLotto = getValidWinningLotto()
+        val winningNumbers = getValidWinningNumbers()
+        val winningLotto = getValidWinningLotto(winningNumbers)
 
         val lottoResult = LottoStatisticsCalculator.calculate(amount, lottoPapers, winningLotto)
         outputPort.printLottoStatistics(lottoResult)
@@ -36,13 +38,19 @@ class LottoController(
         }
     }
 
-    private fun getValidWinningLotto(): WinningLotto {
+    private fun getValidWinningNumbers(): List<Int> {
         while (true) {
             try {
-                val winningNumbers = getValidWinningNumbersFormat()
-                val bonusNumber = getValidBonusNumberFormat()
+                outputPort.printWinningNumbersGuide()
+                val input = inputPort.readInput()
 
-                return WinningLotto(winningNumbers, bonusNumber)
+                InputValidator.validateWinningNumbers(input)
+                val numbers = InputParser.parseWinningNumbers(input)
+
+                // 로또의 init 에도 검증 로직이 있음
+                Lotto(numbers)
+
+                return numbers
 
             } catch (e: IllegalArgumentException) {
                 outputPort.printError(e.message)
@@ -50,17 +58,20 @@ class LottoController(
         }
     }
 
-    private fun getValidWinningNumbersFormat(): List<Int> {
-        outputPort.printWinningNumbersGuide()
-        val winningNumberInput = inputPort.readInput()
-        InputValidator.validateWinningNumbers(winningNumberInput)
-        return InputParser.parseWinningNumbers(winningNumberInput)
-    }
+    private fun getValidWinningLotto(winningNumbers: List<Int>): WinningLotto {
+        while (true) {
+            try {
+                outputPort.printBonusNumberGuide()
+                val input = inputPort.readInput()
 
-    private fun getValidBonusNumberFormat(): Int {
-        outputPort.printBonusNumberGuide()
-        val bonusNumberInput = inputPort.readInput()
-        InputValidator.validateBonusNumber(bonusNumberInput)
-        return InputParser.parseBonusNumber(bonusNumberInput)
+                InputValidator.validateBonusNumber(input)
+                val bonusNumber = InputParser.parseBonusNumber(input)
+
+                return WinningLotto(winningNumbers, bonusNumber)
+
+            } catch (e: IllegalArgumentException) {
+                outputPort.printError(e.message)
+            }
+        }
     }
 }
