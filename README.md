@@ -50,13 +50,13 @@
 ```
 ##### [예외 경우]
 - 구입 금액이 1,000원 단위로 나누어 떨어지지 않는 경우
-- 구입 금액이 음수인 경우
+- 구입 금액이 0원 이하인 경우
 - 구입 금액에 문자가 입력된 경우
-- 당첨 번호가 음수거나 0이거나 45를 초과하는 숫자인 경우
+- 당첨 번호가 1 ~ 45 범위를 벗어나는 경우
 - 당첨 번호가 쉼표(,)를 기준으로 올바른 숫자로 분리되지 않는 경우
 - 당첨 번호가 중복된 경우
 - 당첨 번호가 6개가 아닌 경우
-- 보너스 번호가 음수거나 0이거나 45를 초과하는 숫자인 경우
+- 보너스 번호가 1 ~ 45 범위를 벗어나는 경우
 - 보너스 번호가 기존 당첨 번호와 중복된 경우
 - 보너스 번호에 문자가 입력된 경우
 
@@ -65,33 +65,52 @@
 ## 설계 🧩
 #### main
 ```
-lotto/
+lotto
 ├── controller
-│   └── LottoController.kt      // (class) - 전체 흐름 제어
+│   └── LottoController.kt     // (class) - 전체 흐름 제어
 │
 ├── model
-│   ├── Lotto.kt                // (data class) - 로또 1장
-│   ├── LottoPapers.kt          // (data class) - 구매한 로또 묶음
-│   ├── WinningNumbers.kt       // (class) - 당첨/보너스 번호
-│   └── LottoResult.kt          // (data class) - 통계와 수익률 결과
-│
+│   ├── Lotto.kt             // (data class) - 로또 1장
+│   ├── LottoResult.kt       // (data class) - 통계와 수익률 결과
+│   ├── Lottos.kt            // (data class) - 구매한 로또 묶음
+│   ├── Rank.kt              // (enum) - 당첨 등수 (1등, 2등...)
+│   └── WinningLotto.kt      // (data class) - 당첨/보너스 번호
 ├── port
-│   ├── InputPort.kt            // (interface) - 입력 기능 정의
-│   └── OutputPort.kt           // (interface) - 출력 기능 정의
+│   ├── InputPort.kt         // (interface) - 입력 기능 정의
+│   └── OutputPort.kt        // (interface) - 출력 기능 정의
 │
 ├── service
-│   ├── LottoService.kt         // (class) - 로직 총괄 매니저
-│   ├── LottoGenerator.kt       // (object) - 로또 생성 로직
+│   ├── LottoGenerator.kt    // (object) - 로또 생성 로직
+│   ├── LottoService.kt      // (class) - 로직 총괄 매니저
 │   └── LottoStatisticsCalculator.kt // (object) - 통계/수익률 계산 로직
 │
 ├── util
-│   ├── InputParser.kt          // (object) - "1,2,3" -> List<Int> 변환
-│   ├── InputValidator.kt       // (object) - 입력값 형식 검증
-│   └── LottoConstants.kt       // (object) - 1000원, 6개, 1~45 등 상수
+│   ├── ErrorMessage.kt      // (enum) - 예외 처리 메시지
+│   ├── InputParser.kt       // (object) - "1,2,3" -> List<Int> 변환
+│   ├── InputValidator.kt    // (object) - 입력값 형식 검증
+│   └── LottoConstants.kt    // (object) - 1000원, 6개, 1~45 등 상수
 │
 ├── view
-│   ├── InputView.kt            // (object : InputPort) - 입력 구현체
-│   └── OutputView.kt           // (object : OutputPort) - 출력 구현체
+│   ├── InputView.kt         // (object : InputPort) - 입력 구현체
+│   └── OutputView.kt        // (object : OutputPort) - 출력 구현체
 │
-└── Application.kt              // (main 함수)
+└── Application.kt           // (main 함수)
+```
+### test
+```
+lotto
+├── controller
+│   └── LottoControllerTest.kt
+├── model
+│   ├── LottoTest.kt
+│   ├── RankTest.kt
+│   └── WinningLottoTest.kt
+├── service
+│   ├── LottoGeneratorTest.kt
+│   ├── LottoServiceTest.kt
+│   └── LottoStatisticsCalculatorTest.kt
+├── util
+│   ├── InputParserTest.kt
+│   └── InputValidatorTest.kt
+└── ApplicationTest.kt
 ```
