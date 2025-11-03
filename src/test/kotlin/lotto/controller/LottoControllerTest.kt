@@ -4,6 +4,7 @@ import lotto.model.LottoResult
 import lotto.model.Lottos
 import lotto.port.InputPort
 import lotto.port.OutputPort
+import lotto.service.LottoService
 import lotto.util.ErrorMessage
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -54,6 +55,9 @@ class StubOutputPort : OutputPort {
 }
 
 class LottoControllerTest {
+    // 공통
+    val lottoService = LottoService()
+
     @Test
     fun `모든 입력이 정상일 경우 전체 게임이 성공적으로 실행`() {
         // given
@@ -65,7 +69,7 @@ class LottoControllerTest {
         val stubInput = StubInputPort(inputs)
         val stubOutput = StubOutputPort()
 
-        val controller = LottoController(stubInput, stubOutput)
+        val controller = LottoController(stubInput, stubOutput, lottoService)
 
         // when
         controller.run()
@@ -99,7 +103,7 @@ class LottoControllerTest {
         val stubInput = StubInputPort(inputs)
         val stubOutput = StubOutputPort()
 
-        val controller = LottoController(stubInput, stubOutput)
+        val controller = LottoController(stubInput, stubOutput, lottoService)
 
         // when
         controller.run()
@@ -128,7 +132,7 @@ class LottoControllerTest {
         val stubInput = StubInputPort(inputs)
         val stubOutput = StubOutputPort()
 
-        val controller = LottoController(stubInput, stubOutput)
+        val controller = LottoController(stubInput, stubOutput, lottoService)
 
         // when
         controller.run()

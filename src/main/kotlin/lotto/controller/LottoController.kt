@@ -5,23 +5,23 @@ import lotto.model.WinningLotto
 import lotto.port.InputPort
 import lotto.port.OutputPort
 import lotto.service.LottoService
-import lotto.service.LottoStatisticsCalculator
 import lotto.util.InputParser
 import lotto.util.InputValidator
 
 class LottoController(
     private val inputPort: InputPort,
-    private val outputPort: OutputPort
+    private val outputPort: OutputPort,
+    private val lottoService: LottoService
 ) {
     fun run() {
         val amount = getValidPurchaseAmount()
-        val lottoPapers = LottoService().purchaseLottos(amount)
-        outputPort.printLottos(lottoPapers)
+        val lottos = lottoService.purchaseLottos(amount)
+        outputPort.printLottos(lottos)
 
         val winningNumbers = getValidWinningNumbers()
         val winningLotto = getValidWinningLotto(winningNumbers)
 
-        val lottoResult = LottoStatisticsCalculator.calculate(amount, lottoPapers, winningLotto)
+        val lottoResult = lottoService.calculate(amount, lottos, winningLotto)
         outputPort.printLottoStatistics(lottoResult)
     }
 
