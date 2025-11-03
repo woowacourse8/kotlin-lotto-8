@@ -21,7 +21,7 @@ object InputValidator {
             ErrorMessage.INPUT_IS_NULL_OR_EMPTY.fullMessage
         }
 
-        require(numbers.all { it.toIntOrNull() != null}) {
+        require(numbers.all { it.toIntOrNull() != null }) {
             ErrorMessage.INVALID_NUMBER_FORMAT.fullMessage
         }
     }

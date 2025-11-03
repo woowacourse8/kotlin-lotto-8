@@ -1,7 +1,7 @@
 package lotto.service
 
 import lotto.model.Lotto
-import lotto.model.LottoPapers
+import lotto.model.Lottos
 import lotto.model.Rank
 import lotto.model.WinningLotto
 import org.assertj.core.api.Assertions.assertThat
@@ -26,10 +26,10 @@ class LottoStatisticsCalculatorTest {
         // given
         val amount = 1000
         val lotto5th = Lotto(1, 2, 3, 10, 11, 12)
-        val lottoPapers = LottoPapers(lotto5th)
+        val lottos = Lottos(lotto5th)
 
         // when
-        val result = LottoStatisticsCalculator.calculate(amount, lottoPapers, defaultWinningLotto)
+        val result = LottoStatisticsCalculator.calculate(amount, lottos, defaultWinningLotto)
 
         // then
         assertThat(result.statistics).hasSize(1)
@@ -44,10 +44,10 @@ class LottoStatisticsCalculatorTest {
         val amount = 2000
         val lottoMiss1 = Lotto(10, 11, 12, 13, 14, 15)
         val lottoMiss2 = Lotto(16, 17, 18, 19, 20, 21)
-        val lottoPapers = LottoPapers(lottoMiss1, lottoMiss2)
+        val lottos = Lottos(lottoMiss1, lottoMiss2)
 
         // when
-        val result = LottoStatisticsCalculator.calculate(amount, lottoPapers, defaultWinningLotto)
+        val result = LottoStatisticsCalculator.calculate(amount, lottos, defaultWinningLotto)
 
         // then
         assertThat(result.statistics).hasSize(1)
@@ -66,12 +66,12 @@ class LottoStatisticsCalculatorTest {
         val lotto4th = Lotto(1, 2, 3, 4, 8, 9)
         val lotto5th = Lotto(1, 2, 3, 8, 9, 10)
         val lottoMiss = Lotto(10, 11, 12, 13, 14, 15)
-        val lottoPapers = LottoPapers(
+        val lottos = Lottos(
             lotto1st, lotto2nd, lotto3rd, lotto4th, lotto5th, lottoMiss, lottoMiss
         )
 
         // when
-        val result = LottoStatisticsCalculator.calculate(amount, lottoPapers, defaultWinningLotto)
+        val result = LottoStatisticsCalculator.calculate(amount, lottos, defaultWinningLotto)
 
         // then
         val expectedRankMap = mapOf(
@@ -96,10 +96,10 @@ class LottoStatisticsCalculatorTest {
         val amount = 3000
         val lotto5th = Lotto(1, 2, 3, 8, 9, 10)
         val lottoMiss = Lotto(10, 11, 12, 13, 14, 15)
-        val lottoPapers = LottoPapers(lotto5th, lottoMiss, lottoMiss)
+        val lottos = Lottos(lotto5th, lottoMiss, lottoMiss)
 
         // when
-        val result = LottoStatisticsCalculator.calculate(amount, lottoPapers, defaultWinningLotto)
+        val result = LottoStatisticsCalculator.calculate(amount, lottos, defaultWinningLotto)
 
         // then
         val expectedRate = String.format("%.2f", Rank.FIFTH.prize * 100.0 / amount).toDouble()
@@ -112,10 +112,10 @@ class LottoStatisticsCalculatorTest {
         val amount = 2000
         val lotto2nd = Lotto(1, 2, 3, 4, 5, 7)
         val lotto3rd = Lotto(1, 2, 3, 4, 5, 8)
-        val lottoPapers = LottoPapers(lotto2nd, lotto3rd)
+        val lottos = Lottos(lotto2nd, lotto3rd)
 
         // when
-        val result = LottoStatisticsCalculator.calculate(amount, lottoPapers, defaultWinningLotto)
+        val result = LottoStatisticsCalculator.calculate(amount, lottos, defaultWinningLotto)
 
         // then
         assertThat(result.statistics).hasSize(2)

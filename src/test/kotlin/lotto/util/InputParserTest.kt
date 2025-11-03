@@ -13,7 +13,7 @@ class InputParserTest {
     @Test
     fun `로또 번호 입력 쉼표 분리 문자열을 List_Int로 변환`() {
         val winningNumbers = InputParser.parseWinningNumbers("1,2,3,4,5,6")
-        assertThat(winningNumbers).isEqualTo(listOf(1,2,3,4,5,6))
+        assertThat(winningNumbers).isEqualTo(listOf(1, 2, 3, 4, 5, 6))
     }
 
     @Test

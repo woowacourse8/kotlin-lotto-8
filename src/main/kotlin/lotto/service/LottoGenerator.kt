@@ -2,11 +2,11 @@ package lotto.service
 
 import camp.nextstep.edu.missionutils.Randoms
 import lotto.model.Lotto
-import lotto.model.LottoPapers
+import lotto.model.Lottos
 import lotto.util.LottoConstants
 
 object LottoGenerator {
-    fun generateLotto(lottoCount: Int): LottoPapers {
+    fun generateLotto(lottoCount: Int): Lottos {
         val lottos = List(lottoCount) {
             val numbers = Randoms.pickUniqueNumbersInRange(
                 LottoConstants.MIN_NUM,
@@ -17,6 +17,6 @@ object LottoGenerator {
             Lotto(numbers)
         }
 
-        return LottoPapers(lottos)
+        return Lottos(lottos)
     }
 }

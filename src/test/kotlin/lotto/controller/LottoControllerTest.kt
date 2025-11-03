@@ -1,14 +1,14 @@
 package lotto.controller
 
-import lotto.model.Lottos
 import lotto.model.LottoResult
+import lotto.model.Lottos
 import lotto.port.InputPort
 import lotto.port.OutputPort
 import lotto.util.ErrorMessage
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class StubInputPort(inputs: List<String>): InputPort {
+class StubInputPort(inputs: List<String>) : InputPort {
     private val inputQueue = ArrayDeque(inputs)
 
     override fun readInput(): String {
@@ -16,7 +16,7 @@ class StubInputPort(inputs: List<String>): InputPort {
     }
 }
 
-class StubOutputPort: OutputPort {
+class StubOutputPort : OutputPort {
     // 최종 결과 기록
     var printedLottos: Lottos? = null
     var printedResult: LottoResult? = null
@@ -88,7 +88,7 @@ class LottoControllerTest {
     }
 
     @Test
-    fun `구매 금액 입력 실패 시 예외 메시지 출력 후 재입력 받음`(){
+    fun `구매 금액 입력 실패 시 예외 메시지 출력 후 재입력 받음`() {
         // given
         val inputs = listOf(
             "천원",        // 1. 구매 금액 실패

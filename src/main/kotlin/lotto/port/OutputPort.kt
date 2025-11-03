@@ -1,12 +1,11 @@
 package lotto.port
 
-import lotto.model.LottoPapers
 import lotto.model.LottoResult
-import lotto.model.WinningLotto
+import lotto.model.Lottos
 
 interface OutputPort {
     fun printPurchaseGuide()
-    fun printLottos(lottoPapers: LottoPapers)
+    fun printLottos(lottos: Lottos)
     fun printWinningNumbersGuide()
     fun printBonusNumberGuide()
     fun printLottoStatistics(lottoResult: LottoResult)

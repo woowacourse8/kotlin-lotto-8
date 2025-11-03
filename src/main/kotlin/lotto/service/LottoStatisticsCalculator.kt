@@ -5,12 +5,12 @@ import lotto.model.*
 object LottoStatisticsCalculator {
     fun calculate(
         amount: Int,
-        lottoPapers: LottoPapers,
+        lottos: Lottos,
         winningLotto: WinningLotto
     ): LottoResult {
         val rankMap = mutableMapOf<Rank, Int>()
 
-        lottoPapers.lottos.forEach { lotto ->
+        lottos.lottos.forEach { lotto ->
             val rank = calculateRank(lotto, winningLotto)
             rankMap[rank] = rankMap.getOrDefault(rank, 0) + 1
         }
