@@ -12,5 +12,7 @@ data class Lotto(private val numbers: List<Int>) {
         }
     }
 
+    constructor(vararg numbers: Int) : this(numbers.toList())
+
     fun getNumbers() = numbers
 }
